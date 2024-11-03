@@ -7,9 +7,15 @@ import Content from './components/content';
 
 export default function Home() {
   let title = "ももも";
-  const { data, error } = useSWR('/api/message')
+  const fetcher = url => fetch(url).then(r => r.json())
+
+  const { data, error } = useSWR(
+    '/api/message',
+    fetcher
+  );
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
+  console.log({data, error});
 
   return (
     <Content>
